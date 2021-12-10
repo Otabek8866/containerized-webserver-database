@@ -16,12 +16,23 @@ async function loadTableData() {
         let phone = row.insertCell(4);
         phone.innerHTML = item.phone;
         let button = row.insertCell(5);
-        button.innerHTML = "<button class='favorite styled' type='button' id='" + item.id + "' onClick='reply_click(this.id)'>Delete</button>";
+        button.innerHTML = "<button class='favorite styled' type='button' id='" + item.id + "' onClick='delete_entry(this.id)'>Delete</button>";
     });
 }
 
-function reply_click(clicked_id) {
+// Deleting the entry with ID
+function delete_entry(clicked_id) {
     alert(clicked_id);
+}
+
+// Adding entry to the table
+function add_entry() {
+    var submitDiv = document.getElementById("addDiv");
+    if (submitDiv.style.display !== "none") {
+        submitDiv.style.display = "none";
+    } else {
+        submitDiv.style.display = "block";
+    }
 }
 
 // Updating table

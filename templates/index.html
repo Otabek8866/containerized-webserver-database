@@ -11,11 +11,22 @@
     </head>
 
     <body>
-        <div>
+        <div class="row">
             <h1 center>Contact Details
                 <button class="button" onclick="refresh_table()">Refresh</button>
+                <button class="button1" onclick="add_entry()">Add</button>
             </h1>
-            <!-- <button class="button" style="right: 100%;" onclick="refresh_table()">Refresh</button> -->
+        </div>
+        <div id="addDiv" style="display: none;">
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname"><br>
+            <label for="email">Email address:</label><br>
+            <input type="text" id="email" name="email"><br>
+            <label for="phone">Phone number:</label><br>
+            <input type="text" id="phone" name="phone"><br><br>
+            <button style="padding: 8px 8px; border-radius: 8px; background-color:aqua">Submit</button><br><br>
         </div>
 
         <!-- Table of Contact details -->

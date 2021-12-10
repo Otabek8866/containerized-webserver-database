@@ -42,11 +42,11 @@ def fill_table():
     return json.dumps(fetch_response)
 
 
-@app.route('/<int:id>', methods=["GET"])
-def main_page_sliding(id):
-    # id = int(id)
-    # return json.dumps(new_dict_search, ensure_ascii=False)
-    pass
+@app.route('/add_entry', methods=["POST"])
+def add_entry():
+    print(request)
+    print(request.args.get("fname"))
+    return render_template("index.html")
 
 
 @app.route('/<int:id>', methods=["POST"])
