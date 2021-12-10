@@ -42,6 +42,7 @@ def fill_table():
     return json.dumps(fetch_response)
 
 
+# adding a new entry into database
 @app.route('/add_entry', methods=["POST"])
 def add_entry():
     print(request)
@@ -49,15 +50,13 @@ def add_entry():
     return render_template("index.html")
 
 
-@app.route('/<int:id>', methods=["POST"])
-def second_page_sliding(id):
-    # id = int(id)
+# reserved func
+@app.route('/reserved', methods=["POST"])
+def second_page_sliding():
     pass
 
 
 if __name__ == "__main__":
-
     app.run(host="0.0.0.0", port=80, debug=True)
-
     # Stopping the cursor and closing the db
     DB.close()
