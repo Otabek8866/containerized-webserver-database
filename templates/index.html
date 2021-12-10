@@ -14,7 +14,7 @@
         <div class="row">
             <h1 center>Contact Details
                 <button class="button" onclick="refresh_table()">Refresh</button>
-                <button class="button1" onclick="add_entry()">Add</button>
+                <button class="button1" onclick="open_form()">Add</button>
             </h1>
         </div>
         <div id="addDiv" style="display: none;">
@@ -26,7 +26,8 @@
             <input type="text" id="email" name="email"><br>
             <label for="phone">Phone number:</label><br>
             <input type="text" id="phone" name="phone"><br><br>
-            <button style="padding: 8px 8px; border-radius: 8px; background-color:aqua">Submit</button><br><br>
+            <button style="padding: 8px 8px; border-radius: 8px; background-color:aqua" onclick="add_new_entry()">Submit</button>
+            <button style="padding: 8px 8px; border-radius: 8px; background-color:rgb(245, 131, 116)" onclick="clear_fields()">Clear</button><br><br>
         </div>
 
         <!-- Table of Contact details -->

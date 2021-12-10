@@ -1,5 +1,6 @@
 # importing libraries
-from flask import Flask, request, render_template
+from sys import exec_prefix
+from flask import Flask, request, render_template, jsonify
 import sqlite3
 import json
 
@@ -45,9 +46,23 @@ def fill_table():
 # adding a new entry into database
 @app.route('/add_entry', methods=["POST"])
 def add_entry():
-    print(request)
-    print(request.args.get("fname"))
-    return render_template("index.html")
+    global DB
+    data = json.loads(request.data)
+    data = (data['fname'], data['lname'], data['email'], data['phone'])
+    attempt = True
+
+    try:
+        cursor_new_entry = DB.cursor()
+        query_new_entry = "INSERT INTO contacts(first_name, last_name, email, phone) VALUES(?,?,?,?);"
+        cursor_new_entry.execute(query_new_entry, data)
+        DB.commit()
+    except:
+        DB.rollback()
+        attempt = False
+        pass
+
+    resp = jsonify(success=attempt)
+    return resp
 
 
 # reserved func
