@@ -34,10 +34,13 @@ def fill_table():
 
     # convert the data into json format
     fetch_response = []
+    i = 1
     for item in list(cursor.fetchall()):
-        person = {"id": item[0], "first_name": item[1],
-                  "last_name": item[2], "email": item[3], "phone": item[4], }
+        print(item)
+        person = {"id": i, "first_name": item[0],
+                  "last_name": item[1], "email": item[2], "phone": item[3]}
         fetch_response.append(person)
+        i += 1
 
     cursor.close()
     return json.dumps(fetch_response)
@@ -49,11 +52,12 @@ def add_entry():
     global DB
     data = json.loads(request.data)
     data = (data['fname'], data['lname'], data['email'], data['phone'])
+    print(data)
     attempt = True
 
     try:
         cursor_new_entry = DB.cursor()
-        query_new_entry = "INSERT INTO contacts(first_name, last_name, email, phone) VALUES(?,?,?,?);"
+        query_new_entry = "INSERT INTO contacts(first_name, last_name, email, phone) VALUES(?,?,?,?)"
         cursor_new_entry.execute(query_new_entry, data)
         DB.commit()
     except:
@@ -66,9 +70,27 @@ def add_entry():
 
 
 # reserved func
-@app.route('/reserved', methods=["POST"])
+@app.route('/delete', methods=["POST"])
 def second_page_sliding():
-    pass
+    global DB
+    data = json.loads(request.data)
+    data = (int(data['id']),)
+    print(data)
+    print(type(data[0]))
+    attempt = True
+
+    try:
+        cursor = DB.cursor()
+        query = "DELETE FROM contacts WHERE rowid = ?"
+        cursor.execute(query, data)
+        DB.commit()
+    except:
+        DB.rollback()
+        attempt = False
+        pass
+
+    resp = jsonify(success=attempt)
+    return resp
 
 
 if __name__ == "__main__":

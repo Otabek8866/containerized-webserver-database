@@ -74,6 +74,7 @@ async function add_new_entry() {
     //clear fields and show the result
     open_form();
     clear_fields();
+    refresh_table();
     // if (answer.status == 200) {
     //     alert("The new contact added successfully. Please refresh the table!")
     // } else {
@@ -109,8 +110,18 @@ function check_fields() {
     }
 }
 // Deleting the entry with ID
-function delete_entry(clicked_id) {
-    alert(clicked_id);
+async function delete_entry(clicked_id) {
+    var jsonData = { 'id': clicked_id };
+
+    // sending the new entry to server
+    let answer = await fetch('delete', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jsonData)
+    });
+    // refresh the table
+    refresh_table();
+    console.log(answer.status);
 }
 
 loadTableData();
