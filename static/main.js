@@ -17,7 +17,7 @@ async function loadTableData() {
         let phone = row.insertCell(4);
         phone.innerHTML = item.phone;
         let button = row.insertCell(5);
-        button.innerHTML = "<button class='favorite styled' type='button' id='" + item.id + "' onClick='delete_entry(this.id)'>Delete</button>";
+        button.innerHTML = "<button class='favorite styled' type='button' id='" + item.email + "' onClick='delete_entry(this.id)'>Delete</button>";
     });
 }
 
@@ -110,8 +110,8 @@ function check_fields() {
     }
 }
 // Deleting the entry with ID
-async function delete_entry(clicked_id) {
-    var jsonData = { 'id': clicked_id };
+async function delete_entry(email) {
+    var jsonData = { 'email': email };
 
     // sending the new entry to server
     let answer = await fetch('delete', {

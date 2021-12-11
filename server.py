@@ -36,7 +36,6 @@ def fill_table():
     fetch_response = []
     i = 1
     for item in list(cursor.fetchall()):
-        print(item)
         person = {"id": i, "first_name": item[0],
                   "last_name": item[1], "email": item[2], "phone": item[3]}
         fetch_response.append(person)
@@ -52,7 +51,6 @@ def add_entry():
     global DB
     data = json.loads(request.data)
     data = (data['fname'], data['lname'], data['email'], data['phone'])
-    print(data)
     attempt = True
 
     try:
@@ -74,14 +72,12 @@ def add_entry():
 def second_page_sliding():
     global DB
     data = json.loads(request.data)
-    data = (int(data['id']),)
-    print(data)
-    print(type(data[0]))
+    data = (data['email'],)
     attempt = True
 
     try:
         cursor = DB.cursor()
-        query = "DELETE FROM contacts WHERE rowid = ?"
+        query = "DELETE FROM contacts WHERE email = ?"
         cursor.execute(query, data)
         DB.commit()
     except:
