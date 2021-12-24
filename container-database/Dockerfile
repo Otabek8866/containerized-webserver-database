@@ -14,10 +14,10 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 #open port 80 to be accessed
-EXPOSE 80
+EXPOSE 5000
 
 #pre execution command python CMD
 ENTRYPOINT ["python"]
 
 #commands to be exectued ENTRYPOINT then CMD --> python server.py
-CMD ["server_web.py"]
+CMD ["server_db.py"]
