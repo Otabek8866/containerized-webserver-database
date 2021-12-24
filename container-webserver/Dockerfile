@@ -19,5 +19,5 @@ EXPOSE 80
 #pre execution command python CMD
 ENTRYPOINT ["python"]
 
-#commands to be exectued ENTRYPOINT then CMD --> python server.py
+#commands to be exectued ENTRYPOINT then CMD --> python server_web.py
 CMD ["server_web.py"]
