@@ -1,6 +1,6 @@
 # importing libraries
 from sys import exec_prefix
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, jsonify
 import sqlite3
 import json
 
@@ -16,15 +16,9 @@ app = Flask(__name__)
 DB = sqlite3.connect(DB_NAME, check_same_thread=False)
 
 
-# Index function to retrieve the first web pag
-@app.route('/', methods=["GET"])
-def index():
-    return render_template("index.html")
-
-
 # API call function to send all entries in DB
-@app.route('/contacts', methods=["GET"])
-def fill_table():
+@app.route('/contacts_db', methods=["GET"])
+def fill_table_db():
     global DB
 
     # Creating a query and execute it
@@ -46,10 +40,11 @@ def fill_table():
 
 
 # adding a new entry into database
-@app.route('/add_entry', methods=["POST"])
-def add_entry():
+@app.route('/add_entry_db', methods=["POST"])
+def add_entry_db():
     global DB
     data = json.loads(request.data)
+
     data = (data['fname'], data['lname'], data['email'], data['phone'])
     attempt = True
 
@@ -67,9 +62,9 @@ def add_entry():
     return resp
 
 
-# reserved func
-@app.route('/delete', methods=["POST"])
-def second_page_sliding():
+# function to delete an entry
+@app.route('/delete_db', methods=["POST"])
+def delete_entry_db():
     global DB
     data = json.loads(request.data)
     data = (data['email'],)
@@ -90,6 +85,6 @@ def second_page_sliding():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(debug=True)
     # Stopping the cursor and closing the db
     DB.close()
