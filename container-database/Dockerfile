@@ -13,11 +13,11 @@ RUN pip install -r requirements.txt
 #copy all things from the current directory to /app in the container
 COPY . /app
 
-#open port 80 to be accessed
+#open port 5000 to be accessed
 EXPOSE 5000
 
 #pre execution command python CMD
 ENTRYPOINT ["python"]
 
-#commands to be exectued ENTRYPOINT then CMD --> python server.py
+#commands to be exectued ENTRYPOINT then CMD --> python server_db.py
 CMD ["server_db.py"]
