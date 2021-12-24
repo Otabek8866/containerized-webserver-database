@@ -1,5 +1,9 @@
 #using base image from dockerhub python:slim
-FROM python:slim
+FROM alpine
+
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 #copy requirements file to container
 COPY requirements.txt /app/requirements.txt
@@ -8,16 +12,16 @@ COPY requirements.txt /app/requirements.txt
 WORKDIR /app
 
 #installing requirements pip install ***
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 #copy all things from the current directory to /app in the container
 COPY . /app
 
 #open port 80 to be accessed
-EXPOSE 80
+EXPOSE 8080
 
 #pre execution command python CMD
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3"]
 
-#commands to be exectued ENTRYPOINT then CMD --> python server.py
+#commands to be exectued ENTRYPOINT then CMD --> python3 server_web.py
 CMD ["server_web.py"]
